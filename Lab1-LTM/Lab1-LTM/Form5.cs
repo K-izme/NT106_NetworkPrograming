@@ -44,13 +44,43 @@ namespace Lab1
             string hexa;
             int x = new int();
             string bridge = string.Empty;
+
+           
             try
             {
+                //kiểm tra đầu vào cho hex,octal,decimal
+                if (comboBox1.SelectedIndex == 2)
+                {
+                    char[] allowedChars = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+                    foreach (char character in textBox1.Text.ToUpper().ToArray())
+                    {
+                        if (!allowedChars.Contains(character))
+                        {
+                            throw new Exception();
+
+                        }
+
+                    }
+                }
+                else if (comboBox1.SelectedIndex == 1)
+                {
+                    char[] allowedChars = new char[] { '0', '1' };
+                    foreach (char character in textBox1.Text.ToUpper().ToArray())
+                    {
+                        if (!allowedChars.Contains(character))
+                        {
+                            throw new Exception();
+                        }
+
+                    }
+                }
                 switch (comboBox1.SelectedIndex)
                 {
                     case 0:
-                        dec = int.Parse(textBox1.Text);
-                        x = dec;
+                        if (int.TryParse(textBox1.Text, out dec))
+                            x = dec;
+                        else
+                            throw new Exception();
                         break;
                     case 1:
                         bin = textBox1.Text;

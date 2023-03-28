@@ -39,7 +39,7 @@ namespace Lab1
                     .ToArray();
                 for (int i = 0; i < array.Length; ++i)
                 {
-                    if (Convert.ToInt32(array[i])  >= 0 && Convert.ToInt32(array[i]) <= 10)
+                    if (Convert.ToDouble(array[i])  >= 0 && Convert.ToDouble(array[i]) <= 10)
                         listView1.Items.Add("Môn " + (i + 1) + ": " + array[i]);
                     else
                         throw new Exception();
@@ -51,6 +51,7 @@ namespace Lab1
                     .Select(float.Parse)
                     .ToArray();
                 string xepLoai = string.Empty;
+
                 if (array1.Average() >= 8 && array1.Count(x => x < 6.5) == 0)
                     xepLoai = "Giỏi";
                 else if (array1.Average() >= 6.5 && array1.Average() < 8 && array1.Count(x => x < 5) == 0)
