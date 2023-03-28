@@ -39,7 +39,7 @@ namespace WinFormsApp1
             richTextBox1.Text = inputText;
         }
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e) 
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

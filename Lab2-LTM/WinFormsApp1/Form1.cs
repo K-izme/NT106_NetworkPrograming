@@ -32,5 +32,12 @@ namespace WinFormsApp1
             f4.Show();
             Visible = false;
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form5 f5 = new Form5();
+            f5.Show();
+            Visible = false;
+        }
     }
 }
