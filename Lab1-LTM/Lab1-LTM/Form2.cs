@@ -55,15 +55,17 @@ namespace Lab1_LTM
         {
             try
             {
-                int input1;
-                int input2;
-                if (int.TryParse(textBox1.Text, out input1) && int.TryParse(textBox2.Text, out input2))
+                int num1;
+                int num2;
+                if (int.TryParse(textBox1.Text, out num1) && int.TryParse(textBox2.Text, out num2))
                 {
-                    int result = input1 + input2;
-                    textBox3.Text = (input1 + input2).ToString();
+                    int result = num1 + num2;
+                    textBox3.Text = (num1 + num2).ToString();
                 }
+                else
+                    throw new Exception();
             }
-            catch (Exception)
+            catch(Exception) 
             {
                 MessageBox.Show("Hãy nhập số nguyên", "Error", MessageBoxButtons.OK);
 
@@ -71,6 +73,11 @@ namespace Lab1_LTM
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }

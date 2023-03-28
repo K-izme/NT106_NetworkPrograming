@@ -40,43 +40,44 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(35, 123);
+            label1.Location = new Point(40, 139);
             label1.Name = "label1";
-            label1.Size = new Size(51, 15);
+            label1.Size = new Size(59, 17);
             label1.TabIndex = 0;
             label1.Text = "Nhập số";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(35, 179);
+            label2.Location = new Point(40, 203);
             label2.Name = "label2";
-            label2.Size = new Size(47, 15);
+            label2.Size = new Size(55, 17);
             label2.TabIndex = 1;
             label2.Text = "Kết quả";
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(109, 120);
+            textBox1.Location = new Point(117, 136);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
+            textBox1.Size = new Size(122, 25);
             textBox1.TabIndex = 2;
+            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // textBox2
             // 
             textBox2.ForeColor = Color.Transparent;
-            textBox2.Location = new Point(35, 208);
+            textBox2.Location = new Point(41, 236);
             textBox2.Name = "textBox2";
             textBox2.ReadOnly = true;
-            textBox2.Size = new Size(174, 23);
+            textBox2.Size = new Size(198, 25);
             textBox2.TabIndex = 3;
             textBox2.TextChanged += textBox2_TextChanged;
             // 
             // button1
             // 
-            button1.Location = new Point(268, 119);
+            button1.Location = new Point(306, 135);
             button1.Name = "button1";
-            button1.Size = new Size(75, 23);
+            button1.Size = new Size(86, 26);
             button1.TabIndex = 4;
             button1.Text = "Đọc";
             button1.UseVisualStyleBackColor = true;
@@ -84,9 +85,9 @@
             // 
             // button2
             // 
-            button2.Location = new Point(268, 162);
+            button2.Location = new Point(306, 184);
             button2.Name = "button2";
-            button2.Size = new Size(75, 23);
+            button2.Size = new Size(86, 26);
             button2.TabIndex = 5;
             button2.Text = "Xoá";
             button2.UseVisualStyleBackColor = true;
@@ -94,9 +95,9 @@
             // 
             // button3
             // 
-            button3.Location = new Point(268, 208);
+            button3.Location = new Point(306, 236);
             button3.Name = "button3";
-            button3.Size = new Size(75, 23);
+            button3.Size = new Size(86, 26);
             button3.TabIndex = 6;
             button3.Text = "Thoát";
             button3.UseVisualStyleBackColor = true;
@@ -104,9 +105,9 @@
             // 
             // Form4
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(370, 347);
+            ClientSize = new Size(423, 393);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
@@ -114,6 +115,7 @@
             Controls.Add(textBox1);
             Controls.Add(label2);
             Controls.Add(label1);
+            Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             Name = "Form4";
             Text = "Bài 3";
             ResumeLayout(false);

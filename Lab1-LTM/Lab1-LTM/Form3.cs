@@ -72,11 +72,11 @@ namespace Lab1
                     textBox5.Text = Math.Min(input1, Math.Min(input2, input3)).ToString();
                 }
                 else
-                    MessageBox.Show("Vui lòng nhập số", "error", MessageBoxButtons.OK);
+                    throw new Exception();
             }
-            catch(Exception)
+            catch (Exception)
             {
-                MessageBox.Show("Unknow", "error", MessageBoxButtons.OK);
+                MessageBox.Show("Vui lòng nhập số", "error", MessageBoxButtons.OK);
             }
 
         }

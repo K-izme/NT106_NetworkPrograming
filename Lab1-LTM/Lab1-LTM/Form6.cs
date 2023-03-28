@@ -35,11 +35,15 @@ namespace Lab1
                 string[] array = textBox1.Text
                     .Split(',')
                     .Select(a => a.Trim())
-                    .Where(a => float.TryParse(a, out float num) && num >= 0 && num <= 10)
+                    .Where(a => float.TryParse(a, out float num))
                     .ToArray();
                 for (int i = 0; i < array.Length; ++i)
                 {
-                    listView1.Items.Add("Môn " + (i + 1) + ": " + array[i]);
+                    if (Convert.ToInt32(array[i])  >= 0 && Convert.ToInt32(array[i]) <= 10)
+                        listView1.Items.Add("Môn " + (i + 1) + ": " + array[i]);
+                    else
+                        throw new Exception();
+
                 }
                 float[] array1 = textBox1.Text
                     .Split(',')

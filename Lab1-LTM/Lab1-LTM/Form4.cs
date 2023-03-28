@@ -45,25 +45,32 @@ namespace Lab1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int input1;
+            int num;
             try
             {
-                if (int.TryParse(textBox1.Text, out input1))
+                if (int.TryParse(textBox1.Text, out num))
                 {
-                    textBox2.Text = input1.ToWords().ToLower()
+                    textBox2.Text = num.ToWords().ToLower()
                     .Replace("-", " ").Replace("hundred", "trăm").Replace("thousand", "nghìn").Replace("million", "triệu").Replace(" and", "")
                     .Replace("eleven", "mười một").Replace("twelve", "mười hai")
                     .Replace("ten", "mười").Replace("twenty", "hai mươi").Replace("thirty", "ba mươi").Replace("forty", "Bốn mươi").Replace("fifty", "năm mươi")
                     .Replace("sixty", "sáu mươi").Replace("seventy", "bảy mươi").Replace("eighty", "tám mươi").Replace("ninety", "chín mươi")
                     .Replace("one", "một").Replace("two", "hai").Replace("three", "ba").Replace("four", "bốn").Replace("five", "năm")
-                    .Replace("six", "sáu").Replace("seven", "bảy").Replace("eigth", "tám").Replace("nine", "chín");
+                    .Replace("six", "sáu").Replace("seven", "bảy").Replace("eight", "tám").Replace("nine", "chín").Replace("zero", "không");
                 }
+                else
+                    throw new Exception();
             }
             catch (Exception)
             {
                 MessageBox.Show("Hãy nhập số nguyên", "Error", MessageBoxButtons.OK);
 
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
