@@ -69,7 +69,7 @@
             textBox2.Location = new Point(41, 236);
             textBox2.Name = "textBox2";
             textBox2.ReadOnly = true;
-            textBox2.Size = new Size(198, 25);
+            textBox2.Size = new Size(246, 25);
             textBox2.TabIndex = 3;
             textBox2.TextChanged += textBox2_TextChanged;
             // 

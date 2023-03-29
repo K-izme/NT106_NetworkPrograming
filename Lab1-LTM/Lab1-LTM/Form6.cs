@@ -32,11 +32,14 @@ namespace Lab1
         {
             try
             {
+                //split by ","
                 string[] array = textBox1.Text
                     .Split(',')
                     .Select(a => a.Trim())
                     .Where(a => float.TryParse(a, out float num))
                     .ToArray();
+
+                //Add item to listview
                 for (int i = 0; i < array.Length; ++i)
                 {
                     if (Convert.ToDouble(array[i])  >= 0 && Convert.ToDouble(array[i]) <= 10)
@@ -45,6 +48,7 @@ namespace Lab1
                         throw new Exception();
 
                 }
+
                 float[] array1 = textBox1.Text
                     .Split(',')
                     .Select(a => a.Trim())

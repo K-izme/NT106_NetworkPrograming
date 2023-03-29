@@ -53,12 +53,17 @@ namespace WinFormsApp1
 
             //count work
             string delimeterWord = " ?!,.;:|\r\n\t";
-            string[] words = File.ReadAllText(openFileDialog1.FileName).Split(delimeterWord.ToCharArray(),StringSplitOptions.RemoveEmptyEntries);
+            string[] words = File.ReadAllText(openFileDialog1.FileName).Split(delimeterWord.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             textBox4.Text = words.Length.ToString();
 
             //count char
-            textBox5.Text = File.ReadAllText(openFileDialog1.FileName).Length.ToString(); 
+            textBox5.Text = File.ReadAllText(openFileDialog1.FileName).Length.ToString();
 
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            richTextBox1.ReadOnly = true;
         }
     }
 }
