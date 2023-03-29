@@ -52,12 +52,12 @@ namespace Lab1
                 {
                     textBox2.Text = num.ToWords().ToLower()
                     .Replace("-", " ").Replace("hundred", "trăm").Replace("thousand", "nghìn").Replace("million", "triệu").Replace(" and", "")
-                    .Replace("eleven", "mười một").Replace("twelve", "mười hai").Replace("thirteen","mười ba").Replace("fourteen","mười bốn").Replace("fifteen","mười lăm")
-                    .Replace("sixteen","mười sáu").Replace("seventeen","mười bảy").Replace("eighteen","mười tám").Replace("nineteen","mười chín")
+                    .Replace("eleven", "mười một").Replace("twelve", "mười hai").Replace("thirteen", "mười ba").Replace("fourteen", "mười bốn").Replace("fifteen", "mười lăm")
+                    .Replace("sixteen", "mười sáu").Replace("seventeen", "mười bảy").Replace("eighteen", "mười tám").Replace("nineteen", "mười chín")
                     .Replace("ten", "mười").Replace("twenty", "hai mươi").Replace("thirty", "ba mươi").Replace("forty", "Bốn mươi").Replace("fifty", "năm mươi")
                     .Replace("sixty", "sáu mươi").Replace("seventy", "bảy mươi").Replace("eighty", "tám mươi").Replace("ninety", "chín mươi")
                     .Replace("one", "một").Replace("two", "hai").Replace("three", "ba").Replace("four", "bốn").Replace("five", "năm")
-                    .Replace("six", "sáu").Replace("seven", "bảy").Replace("eight", "tám").Replace("nine", "chín").Replace("zero", "không");
+                    .Replace("six", "sáu").Replace("seven", "bảy").Replace("eight", "tám").Replace("nine", "chín").Replace("zero", "không").Replace("minus", "âm");
                 }
                 else
                     throw new Exception();
