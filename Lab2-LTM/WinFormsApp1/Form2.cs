@@ -31,15 +31,14 @@ namespace WinFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //input text if not exist create file 
-                    OpenFileDialog ofd = new OpenFileDialog();
-                    ofd.ShowDialog();
-                    FileStream fs = new FileStream(ofd.FileName, FileMode.OpenOrCreate);
-                    StreamReader sr = new StreamReader(fs);
-                    string content = sr.ReadToEnd();
-                    richTextBox1.Text = content;
-                    fs.Close();
-            
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.ShowDialog();
+            FileStream fs = new FileStream(ofd.FileName, FileMode.OpenOrCreate);
+            StreamReader sr = new StreamReader(fs);
+            richTextBox1.Text=sr.ReadToEnd();
+            sr.Close();
+            fs.Close();
+
         }
 
         private void label1_Click_1(object sender, EventArgs e)
@@ -61,11 +60,12 @@ namespace WinFormsApp1
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.ShowDialog();
-            FileStream fs = new FileStream(ofd.FileName, FileMode.Open);
+            FileStream fs = new FileStream(ofd.FileName, FileMode.OpenOrCreate);
             StreamWriter sw = new StreamWriter(fs);
-            string input = richTextBox1.Text.ToUpper();
-            sw.Write(input);
+            sw.WriteLine(richTextBox1.Text.ToUpper());
+            sw.Close();
             fs.Close();
+
         }
 
         private void button3_Click(object sender, EventArgs e)
