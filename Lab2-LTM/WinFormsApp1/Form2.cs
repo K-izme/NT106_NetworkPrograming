@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -30,19 +31,15 @@ namespace WinFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //input text if not exist create file
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.ShowDialog();
-
-            string inputFileLocation = openFileDialog1.FileName;
-
-            using (Stream stream = File.Open(inputFileLocation, FileMode.OpenOrCreate, FileAccess.ReadWrite , FileShare.ReadWrite))
+            //input text if not exist create file 
+            string inputFileLocation = textBox1.Text;
+            if (!File.Exists(inputFileLocation))
             {
-                stream.Close();
-                string inputText = File.ReadAllText(inputFileLocation);
-                richTextBox1.Text = inputText;
+                string createText = "Hi, i created a file for you" + Environment.NewLine;
+                File.WriteAllText(inputFileLocation, createText);
             }
-   
+            string inputText = File.ReadAllText(inputFileLocation);
+            richTextBox1.Text = inputText;
         }
 
         private void label1_Click_1(object sender, EventArgs e)
@@ -63,15 +60,8 @@ namespace WinFormsApp1
         private void button2_Click(object sender, EventArgs e)
         {
             //output text if not exist create file 
-            OpenFileDialog openFileDialog2 = new OpenFileDialog();
-            openFileDialog2.ShowDialog();
-            string outputFileLocation = openFileDialog2.FileName;
-
-            using (StreamWriter sw = new StreamWriter(new FileStream(outputFileLocation, FileMode.Open)))
-            {
-                sw.WriteLine(richTextBox1.Text.ToUpper());
-            }
-            
+            string outputFileLocation = textBox2.Text;
+            File.WriteAllText(outputFileLocation, richTextBox1.Text.ToUpper());
         }
 
         private void button3_Click(object sender, EventArgs e)

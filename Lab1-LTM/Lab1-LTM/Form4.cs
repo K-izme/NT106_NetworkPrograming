@@ -58,7 +58,7 @@ namespace Lab1
                     .Replace("ten", "mười").Replace("twenty", "hai mươi").Replace("thirty", "ba mươi").Replace("forty", "Bốn mươi").Replace("fifty", "năm mươi")
                     .Replace("sixty", "sáu mươi").Replace("seventy", "bảy mươi").Replace("eighty", "tám mươi").Replace("ninety", "chín mươi")
                     .Replace("one", "một").Replace("two", "hai").Replace("three", "ba").Replace("four", "bốn").Replace("five", "năm")
-                    .Replace("six", "sáu").Replace("seven", "bảy").Replace("eight", "tám").Replace("nine", "chín").Replace("zero", "không");
+                    .Replace("six", "sáu").Replace("seven", "bảy").Replace("eight", "tám").Replace("nine", "chín").Replace("zero", "không").Replace("minus", "âm");
                 }
                 else
                     throw new Exception();
