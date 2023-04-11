@@ -44,26 +44,33 @@ namespace WinFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.ShowDialog();
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.ShowDialog();
 
-            textBox1.Text = openFileDialog1.SafeFileName;
-            textBox2.Text = openFileDialog1.FileName;
-            textBox3.Text = Convert.ToString(File.ReadAllLines(openFileDialog1.FileName).Length);
+            textBox1.Text = ofd.SafeFileName;
+            textBox2.Text = ofd.FileName;
+            textBox3.Text = Convert.ToString(File.ReadAllLines(ofd.FileName).Length);
 
             //count work
             string delimeterWord = " ?!,.;:|\r\n\t";
-            string[] words = File.ReadAllText(openFileDialog1.FileName).Split(delimeterWord.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            string[] words = File.ReadAllText(ofd.FileName).Split(delimeterWord.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             textBox4.Text = words.Length.ToString();
 
             //count char
-            textBox5.Text = File.ReadAllText(openFileDialog1.FileName).Length.ToString();
+            textBox5.Text = File.ReadAllText(ofd.FileName).Length.ToString();
+
+   
+            FileStream fs = new FileStream(ofd.FileName, FileMode.OpenOrCreate);
+            StreamReader sr = new StreamReader(fs);
+            richTextBox1.Text = sr.ReadToEnd();
+            sr.Close();
+            fs.Close();
 
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            richTextBox1.ReadOnly = true;
+
         }
     }
 }

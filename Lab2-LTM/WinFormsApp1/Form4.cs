@@ -13,8 +13,6 @@ namespace WinFormsApp1
 {
     public partial class Form4 : Form
     {
-        public string inputFileLocation = @"C:\Users\gohan\OneDrive\Desktop\input.txt";
-        public string outputFileLocation = @"C:\Users\gohan\OneDrive\Desktop\output.txt";
         public Form4()
         {
             InitializeComponent();
@@ -29,36 +27,53 @@ namespace WinFormsApp1
 
         protected void button1_Click(object sender, EventArgs e)
         {
-            //input text if not exist create file 
-            if (!File.Exists(inputFileLocation))
+            try
             {
-                string createText = "1 + 1" + Environment.NewLine;
-                File.WriteAllText(inputFileLocation, createText);
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.ShowDialog();
+                FileStream fs = new FileStream(ofd.FileName, FileMode.OpenOrCreate);
+                StreamReader sr = new StreamReader(fs);
+                richTextBox1.Text = sr.ReadToEnd();
+                fs.Close();
+                sr.Close();
             }
-            string inputText = File.ReadAllText(inputFileLocation);
-            richTextBox1.Text = inputText;
+            catch (Exception)
+            {
+            }
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            richTextBox1.ReadOnly = true;
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string[] inputLines = File.ReadAllLines(inputFileLocation);
-            //Streamwriter to write data
-            using (StreamWriter sw = new StreamWriter(outputFileLocation))
+            try
             {
-                foreach (string line in inputLines)
+          
+                string str = richTextBox1.Text;
+                string str2 = "";
+                string[] substr = str.Split('\n');
+
+                foreach (string element in substr)
                 {
-                    // DataTable compute
-                    DataTable func = new DataTable();
-                    string result = func.Compute(line, "").ToString();
-                    sw.WriteLine($"{line} = {result}");
+                    double result = Convert.ToDouble(new DataTable().Compute(element, null));
+                    str2 += element + " = " + result + "\n";
+                    
                 }
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.ShowDialog();
+                FileStream fs = new FileStream(ofd.FileName, FileMode.OpenOrCreate);
+                StreamWriter sw = new StreamWriter(fs);
+                sw.WriteLine(str2);
+                sw.Close();
+                fs.Close();
+
             }
-            richTextBox1.Text = File.ReadAllText(outputFileLocation);
+            catch (Exception)
+            {
+            }
         }
     }
 }

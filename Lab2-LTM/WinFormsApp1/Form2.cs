@@ -31,15 +31,14 @@ namespace WinFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //input text if not exist create file 
-            string inputFileLocation = textBox1.Text;
-            if (!File.Exists(inputFileLocation))
-            {
-                string createText = "Hi, i created a file for you" + Environment.NewLine;
-                File.WriteAllText(inputFileLocation, createText);
-            }
-            string inputText = File.ReadAllText(inputFileLocation);
-            richTextBox1.Text = inputText;
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.ShowDialog();
+            FileStream fs = new FileStream(ofd.FileName, FileMode.OpenOrCreate);
+            StreamReader sr = new StreamReader(fs);
+            richTextBox1.Text=sr.ReadToEnd();
+            sr.Close();
+            fs.Close();
+
         }
 
         private void label1_Click_1(object sender, EventArgs e)
@@ -59,9 +58,14 @@ namespace WinFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //output text if not exist create file 
-            string outputFileLocation = textBox2.Text;
-            File.WriteAllText(outputFileLocation, richTextBox1.Text.ToUpper());
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.ShowDialog();
+            FileStream fs = new FileStream(ofd.FileName, FileMode.OpenOrCreate);
+            StreamWriter sw = new StreamWriter(fs);
+            sw.WriteLine(richTextBox1.Text.ToUpper());
+            sw.Close();
+            fs.Close();
+
         }
 
         private void button3_Click(object sender, EventArgs e)
