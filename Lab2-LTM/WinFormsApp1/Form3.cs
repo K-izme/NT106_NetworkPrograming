@@ -49,7 +49,7 @@ namespace WinFormsApp1
 
             textBox1.Text = ofd.SafeFileName;
             textBox2.Text = ofd.FileName;
-            textBox3.Text = Convert.ToString(File.ReadAllLines(ofd.FileName).Length);
+            textBox3.Text = Convert.ToString(File.ReadLines(ofd.FileName).Count() + 1);
 
             //count work
             string delimeterWord = " ?!,.;:|\r\n\t";

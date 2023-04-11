@@ -31,13 +31,20 @@ namespace WinFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.ShowDialog();
-            FileStream fs = new FileStream(ofd.FileName, FileMode.OpenOrCreate);
-            StreamReader sr = new StreamReader(fs);
-            richTextBox1.Text = sr.ReadToEnd();
-            sr.Close();
-            fs.Close();
+            try
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.ShowDialog();
+                FileStream fs = new FileStream(ofd.FileName, FileMode.OpenOrCreate);
+                StreamReader sr = new StreamReader(fs);
+                richTextBox1.Text = sr.ReadToEnd();
+                sr.Close();
+                fs.Close();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
         }
 
@@ -58,13 +65,20 @@ namespace WinFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.ShowDialog();
-            FileStream fs = new FileStream(ofd.FileName, FileMode.OpenOrCreate);
-            StreamWriter sw = new StreamWriter(fs);
-            sw.WriteLine(richTextBox1.Text.ToUpper());
-            sw.Close();
-            fs.Close();
+            try
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.ShowDialog();
+                FileStream fs = new FileStream(ofd.FileName, FileMode.OpenOrCreate);
+                StreamWriter sw = new StreamWriter(fs);
+                sw.WriteLine(richTextBox1.Text.ToUpper());
+                sw.Close();
+                fs.Close();
+            }
+            catch (Exception)
+            {
+
+            }
 
         }
 
