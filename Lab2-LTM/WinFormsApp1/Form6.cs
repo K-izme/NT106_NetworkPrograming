@@ -46,5 +46,10 @@ namespace WinFormsApp1
             {
             }
         }
+
+        private void Form6_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -35,7 +35,7 @@ namespace WinFormsApp1
             ofd.ShowDialog();
             FileStream fs = new FileStream(ofd.FileName, FileMode.OpenOrCreate);
             StreamReader sr = new StreamReader(fs);
-            richTextBox1.Text=sr.ReadToEnd();
+            richTextBox1.Text = sr.ReadToEnd();
             sr.Close();
             fs.Close();
 

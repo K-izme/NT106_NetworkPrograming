@@ -39,9 +39,10 @@
             // listView1
             // 
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4 });
-            listView1.Location = new Point(12, 12);
+            listView1.Location = new Point(10, 9);
+            listView1.Margin = new Padding(3, 2, 3, 2);
             listView1.Name = "listView1";
-            listView1.Size = new Size(974, 461);
+            listView1.Size = new Size(853, 347);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
@@ -69,9 +70,10 @@
             // 
             // button1
             // 
-            button1.Location = new Point(807, 490);
+            button1.Location = new Point(706, 368);
+            button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
-            button1.Size = new Size(141, 29);
+            button1.Size = new Size(123, 22);
             button1.TabIndex = 1;
             button1.Text = "Open Folder";
             button1.UseVisualStyleBackColor = true;
@@ -79,13 +81,15 @@
             // 
             // Form6
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1011, 531);
+            ClientSize = new Size(885, 398);
             Controls.Add(button1);
             Controls.Add(listView1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Form6";
             Text = "Form6";
+            Load += Form6_Load;
             ResumeLayout(false);
         }
 

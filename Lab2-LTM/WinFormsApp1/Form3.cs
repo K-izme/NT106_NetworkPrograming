@@ -59,7 +59,7 @@ namespace WinFormsApp1
             //count char
             textBox5.Text = File.ReadAllText(ofd.FileName).Length.ToString();
 
-   
+
             FileStream fs = new FileStream(ofd.FileName, FileMode.OpenOrCreate);
             StreamReader sr = new StreamReader(fs);
             richTextBox1.Text = sr.ReadToEnd();
@@ -71,6 +71,13 @@ namespace WinFormsApp1
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Form1 f1 = new Form1();
+            f1.Show();
         }
     }
 }

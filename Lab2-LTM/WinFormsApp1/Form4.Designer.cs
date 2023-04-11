@@ -84,6 +84,7 @@
             Controls.Add(button1);
             Name = "Form4";
             Text = "Bài 3";
+            Load += Form4_Load;
             ResumeLayout(false);
         }
 

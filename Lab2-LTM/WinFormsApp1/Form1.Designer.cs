@@ -37,10 +37,9 @@
             // 
             // button1
             // 
-            button1.Location = new Point(53, 123);
-            button1.Margin = new Padding(3, 4, 3, 4);
+            button1.Location = new Point(54, 110);
             button1.Name = "button1";
-            button1.Size = new Size(86, 31);
+            button1.Size = new Size(100, 50);
             button1.TabIndex = 0;
             button1.Text = "Bài 1";
             button1.UseVisualStyleBackColor = true;
@@ -48,10 +47,9 @@
             // 
             // button2
             // 
-            button2.Location = new Point(413, 123);
-            button2.Margin = new Padding(3, 4, 3, 4);
+            button2.Location = new Point(361, 110);
             button2.Name = "button2";
-            button2.Size = new Size(86, 31);
+            button2.Size = new Size(100, 50);
             button2.TabIndex = 1;
             button2.Text = "Bài 2";
             button2.UseVisualStyleBackColor = true;
@@ -59,10 +57,9 @@
             // 
             // button3
             // 
-            button3.Location = new Point(234, 255);
-            button3.Margin = new Padding(3, 4, 3, 4);
+            button3.Location = new Point(202, 202);
             button3.Name = "button3";
-            button3.Size = new Size(86, 31);
+            button3.Size = new Size(100, 50);
             button3.TabIndex = 2;
             button3.Text = "Bài 3";
             button3.UseVisualStyleBackColor = true;
@@ -70,10 +67,9 @@
             // 
             // button4
             // 
-            button4.Location = new Point(62, 391);
-            button4.Margin = new Padding(3, 4, 3, 4);
+            button4.Location = new Point(54, 309);
             button4.Name = "button4";
-            button4.Size = new Size(86, 31);
+            button4.Size = new Size(100, 50);
             button4.TabIndex = 3;
             button4.Text = "Bài 4";
             button4.UseVisualStyleBackColor = true;
@@ -81,10 +77,9 @@
             // 
             // button5
             // 
-            button5.Location = new Point(413, 412);
-            button5.Margin = new Padding(3, 4, 3, 4);
+            button5.Location = new Point(361, 309);
             button5.Name = "button5";
-            button5.Size = new Size(86, 31);
+            button5.Size = new Size(100, 50);
             button5.TabIndex = 4;
             button5.Text = "Bài 5";
             button5.UseVisualStyleBackColor = true;
@@ -92,15 +87,14 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(582, 648);
+            ClientSize = new Size(509, 486);
             Controls.Add(button5);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
             Text = "Lab02";
             Load += Form1_Load;

@@ -40,6 +40,7 @@
             textBox4 = new TextBox();
             label5 = new Label();
             textBox5 = new TextBox();
+            button2 = new Button();
             SuspendLayout();
             // 
             // button1
@@ -48,7 +49,7 @@
             button1.Name = "button1";
             button1.Size = new Size(134, 62);
             button1.TabIndex = 3;
-            button1.Text = "Đọc FIle";
+            button1.Text = "Đọc File";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -151,11 +152,22 @@
             textBox5.TabIndex = 6;
             textBox5.TextChanged += textBox5_TextChanged;
             // 
+            // button2
+            // 
+            button2.Location = new Point(77, 416);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 7;
+            button2.Text = "Thoát";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // Form3
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(509, 486);
+            Controls.Add(button2);
             Controls.Add(textBox5);
             Controls.Add(label5);
             Controls.Add(textBox4);
@@ -188,5 +200,6 @@
         private TextBox textBox4;
         private Label label5;
         private TextBox textBox5;
+        private Button button2;
     }
 }

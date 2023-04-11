@@ -51,7 +51,7 @@ namespace WinFormsApp1
         {
             try
             {
-          
+
                 string str = richTextBox1.Text;
                 string str2 = "";
                 string[] substr = str.Split('\n');
@@ -60,7 +60,7 @@ namespace WinFormsApp1
                 {
                     double result = Convert.ToDouble(new DataTable().Compute(element, null));
                     str2 += element + " = " + result + "\n";
-                    
+
                 }
                 OpenFileDialog ofd = new OpenFileDialog();
                 ofd.ShowDialog();
@@ -74,6 +74,11 @@ namespace WinFormsApp1
             catch (Exception)
             {
             }
+        }
+
+        private void Form4_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
