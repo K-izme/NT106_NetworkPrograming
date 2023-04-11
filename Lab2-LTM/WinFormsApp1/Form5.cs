@@ -8,9 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.Globalization;
+using System.Runtime.Serialization.Formatters;
+using System.Runtime.Serialization.Formatters.Binary;
+using WinFormsApp1;
 
-namespace WinFormsApp1
+namespace WinForms1App1
 {
     public partial class Form5 : Form
     {
@@ -18,127 +20,120 @@ namespace WinFormsApp1
         {
             InitializeComponent();
         }
-        OpenFileDialog ofd = new OpenFileDialog();
+        List<Student> students = new List<Student>();
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            Student student = new Student();
+            student.Mssv = tbMssv.Text;
+            student.HoTen = tbHoTen.Text;
+            student.Sđt = tbSđt.Text;
+            student.toan = float.Parse(tbToan.Text);
+            student.van = float.Parse(tbVan.Text);
+            students.Add(student);
+            LoadData();
+        }
+        private void LoadData()
+        {
+            listView.Items.Clear();
+            foreach (Student student in students)
+            {
+                ListViewItem item = new ListViewItem(student.Mssv);
+                item.SubItems.Add(student.HoTen);
+                item.SubItems.Add(student.Sđt);
+                item.SubItems.Add(student.toan.ToString());
+                item.SubItems.Add(student.van.ToString());
+                listView.Items.Add(item);
+            }
+        }
 
-        public void button3_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
-                ofd.ShowDialog();
-                string outputText = rtbHocVien.Text;
-                string writeFilePath = ofd.FileName;
-
-                // Ghi nội dung in hoa xuống file output.txt
-                File.WriteAllText(writeFilePath, outputText);
+                FileStream fi = new FileStream("input.txt", FileMode.OpenOrCreate);
+                BinaryFormatter bi = new BinaryFormatter();
+                bi.Serialize(fi, students);
+                fi.Close();
+                MessageBox.Show("Student info is saved in input.txt");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
             }
         }
 
-        public void button1_Click(object sender, EventArgs e)
+        private void btnOpen_Click(object sender, EventArgs e)
         {
-            rtbHocVien.Clear();
-            int count = 1;
-
-            // Đọc file
-            StreamReader str = new StreamReader(ofd.FileName);
-
-            while (!str.EndOfStream)
+            rtbFile.Clear();
+            try
             {
-                try
+                FileStream fi = new FileStream("output.txt", FileMode.Open);
+                BinaryFormatter bi = new BinaryFormatter();
+                List<Student> list = new List<Student>();
+                list = (List<Student>)bi.Deserialize(fi);
+                foreach (Student St in list)
                 {
-                    rtbHocVien.Text += count.ToString() + ": ";
-                    string mssv = str.ReadLine();
-                    rtbHocVien.Text += mssv + "  \n";
-                    string name = str.ReadLine();
-                    rtbHocVien.Text += name + "  \n";
-                    string n_phone = str.ReadLine();
-                    rtbHocVien.Text += n_phone + "\n";
-
-                    float score_math = float.Parse(str.ReadLine());
-                    rtbHocVien.Text += "Điểm toán: \t" + score_math.ToString() + "\n";
-
-                    float score_literature = float.Parse(str.ReadLine());
-                    rtbHocVien.Text += "Điểm văn: \t" + score_literature.ToString() + "\n";
-
-                    float score_average = (score_math + score_literature) / 2;
-                    rtbHocVien.Text += "Điểm trung bình: \t" + score_literature.ToString() + "\n\n";
-
-                    // Hàng trống.
-                    str.ReadLine();
-                    count++;
+                    rtbFile.Text = rtbFile.Text + St.GetSt().ToString() + "\n";
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Plz provide input in correctly format.", "Error.", MessageBoxButtons.OK);
-                }
+                fi.Close();
             }
-            str.Close();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Đã ghi vào Output.txt", "XUẤT FILE");
-
-            // Path output
-            string path = "D:/output.txt";
-
-            // Ghi file
-            StreamWriter stw = new StreamWriter(path);
-            StreamReader str = new StreamReader(ofd.FileName);
-            if (!File.Exists(path))
-                File.CreateText(path);
-            else
+            catch (Exception ex)
             {
-                while (!str.EndOfStream)
-                {
-                    try
-                    {
-                        string mssv = str.ReadLine();
-                        stw.WriteLine(mssv);
-
-                        string name = str.ReadLine();
-                        stw.WriteLine(name);
-
-                        string n_phone = str.ReadLine();
-                        stw.WriteLine(n_phone);
-
-                        float score_math = float.Parse(str.ReadLine());
-                        stw.WriteLine(score_math.ToString());
-
-                        float score_literature = float.Parse(str.ReadLine());
-                        stw.WriteLine(score_literature.ToString());
-
-                        float score_average = (score_math + score_literature) / 2;
-                        stw.WriteLine(score_average.ToString());
-
-                        // Hàng trống.
-                        stw.WriteLine("\n");
-                        str.ReadLine();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Input isnt in correct format.", "Error.", MessageBoxButtons.OK);
-                    }
-
-                }
+                MessageBox.Show(ex.Message);
             }
-            stw.Close();
-            str.Close();
+
         }
 
-        private void Form5_Load(object sender, EventArgs e)
+        private void btnXoa_Click(object sender, EventArgs e)
         {
-
+            tbHoTen.Text = null;
+            tbMssv.Text = null;
+            tbSđt.Text = null;
+            tbToan.Text = null;
+            tbVan.Text = null;
+            listView.Items.Clear();
+            rtbFile.Text = null;
         }
 
-
-        private void button4_Click(object sender, EventArgs e)
+        private void btnThoat_Click(object sender, EventArgs e)
         {
             this.Close();
             Form1 f1 = new Form1();
             f1.Show();
+        }
+
+        private void btnTinh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach (Student St in students)
+                {
+                    St.Tinh();
+                }
+                FileStream fi = new FileStream("output.txt", FileMode.Create);
+                BinaryFormatter bi = new BinaryFormatter();
+                bi.Serialize(fi, students);
+                fi.Close();
+                MessageBox.Show("Average point is saved in output.txt");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void tbMssv_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
         }
     }
 }

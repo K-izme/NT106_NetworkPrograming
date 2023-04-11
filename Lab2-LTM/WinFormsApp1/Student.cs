@@ -10,20 +10,35 @@ namespace WinFormsApp1
     [Serializable]
     public class Student
     {
-        public int MSSV { get; set; }
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
-        public float Diem1 { get; set; }
-        public float Diem2 { get; set; }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public string Mssv { get; set; }
+        public string HoTen { get; set; }
+        public string Sđt { get; set; }
+        public float toan { get; set; }
+        public float van { get; set; }
+        public float dtb;
+        public void SetSt(string mssv, string ht, string dt, float dToan, float dVan)
         {
-            throw new NotImplementedException();
+            Mssv = mssv;
+            HoTen = ht;
+            Sđt = dt;
+            toan = dToan;
+            van = dVan;
         }
-
-        public override string ToString()
+        public string GetSt()
         {
-            return string.Format(MSSV + " " + Name + " " + PhoneNumber + "\t" + Diem1 + " " + Diem2);
+            string content = "";
+            content = Mssv + "\n" + HoTen + "\n" + Sđt + "\n" + toan.ToString() + "\n" + van.ToString() + "\n";
+            if (dtb != null)
+            {
+                content += ((float)dtb).ToString();
+            }
+            content += "\n";
+            return content;
+        }
+        public float Tinh()
+        {
+            dtb = (toan + van) / 2;
+            return dtb;
         }
     }
 }

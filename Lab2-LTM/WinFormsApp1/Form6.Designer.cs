@@ -34,6 +34,7 @@
             columnHeader3 = new ColumnHeader();
             columnHeader4 = new ColumnHeader();
             button1 = new Button();
+            button2 = new Button();
             SuspendLayout();
             // 
             // listView1
@@ -70,7 +71,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(706, 368);
+            button1.Location = new Point(649, 365);
             button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
             button1.Size = new Size(123, 22);
@@ -79,11 +80,22 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // button2
+            // 
+            button2.Location = new Point(788, 365);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 2;
+            button2.Text = "Close";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // Form6
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(885, 398);
+            Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(listView1);
             Margin = new Padding(3, 2, 3, 2);
@@ -101,5 +113,6 @@
         private ColumnHeader columnHeader3;
         private ColumnHeader columnHeader4;
         private Button button1;
+        private Button button2;
     }
 }
