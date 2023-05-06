@@ -39,7 +39,7 @@ namespace Lab03_LTM
             clientList = new List<Socket>();
 
             IP = new IPEndPoint(IPAddress.Any, 9999);
-            server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+            server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             server.Bind(IP);
 
