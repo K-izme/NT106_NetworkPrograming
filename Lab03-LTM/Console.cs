@@ -38,5 +38,11 @@ namespace Lab03_LTM
             MultiChat_Client mc1 = new MultiChat_Client();
             mc1.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Bai1 bai1 = new Bai1();
+            bai1.Show();
+        }
     }
 }

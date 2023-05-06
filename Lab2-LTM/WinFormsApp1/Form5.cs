@@ -135,5 +135,10 @@ namespace WinForms1App1
         private void label10_Click(object sender, EventArgs e)
         {
         }
+
+        private void Form5_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

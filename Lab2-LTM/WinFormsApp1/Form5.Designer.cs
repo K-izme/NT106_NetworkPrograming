@@ -321,6 +321,7 @@
             Margin = new Padding(4, 3, 4, 3);
             Name = "Form5";
             Text = "Bài 4";
+            Load += Form5_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox3.ResumeLayout(false);
