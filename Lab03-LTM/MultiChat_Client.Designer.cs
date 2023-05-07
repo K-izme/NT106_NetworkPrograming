@@ -92,6 +92,7 @@
             Name = "MultiChat_Client";
             Text = "MultiChat_Client";
             FormClosed += MultiChat_Client_FormClosed;
+            Load += MultiChat_Client_Load;
             ResumeLayout(false);
             PerformLayout();
         }

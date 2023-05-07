@@ -52,7 +52,7 @@ namespace Lab03_LTM
                         server.Listen(100);
                         Socket client = server.Accept();
                         clientList.Add(client);
-
+                        addMess(" New client connection from: " + client.RemoteEndPoint.ToString());
                         Thread receive = new Thread(receiveMess);
                         receive.IsBackground = true;
                         receive.Start(client);
@@ -99,12 +99,12 @@ namespace Lab03_LTM
         }
         void addMess(string s)
         {
-            listView1.Items.Add(new ListViewItem() { Text = DateTime.Now  +" Server: "+ s });
+            listView1.Items.Add(new ListViewItem() { Text = DateTime.Now + s });
         }
         void sendMess(Socket client)
         {
             if (client != null && textBox1.Text != string.Empty)
-                client.Send(Serialize(textBox1.Text));
+                client.Send(Serialize("Server: "+textBox1.Text));
         }
         byte[] Serialize(object obj)
         {
@@ -125,12 +125,17 @@ namespace Lab03_LTM
 
         private void MultiChat_Server_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Close();
+            server.Close();
         }
 
         private void MultiChat_Server_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Close();
+            server.Close();
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

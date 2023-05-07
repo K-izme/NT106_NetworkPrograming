@@ -41,6 +41,7 @@
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.List;
+            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
             // textBox1
             // 

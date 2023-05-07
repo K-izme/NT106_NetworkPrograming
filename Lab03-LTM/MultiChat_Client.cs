@@ -31,9 +31,9 @@ namespace Lab03_LTM
         }
         void connectServer()
         {
-
+            TcpClient ex = new TcpClient();
             IP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
-            client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+            client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             try
             {
                 client.Connect(IP);
@@ -57,7 +57,6 @@ namespace Lab03_LTM
                     byte[] data = new byte[1024 * 5000];
                     client.Receive(data);
                     string message = (string)Deserialize(data);
-
                     addMess(message);
                 }
             }
@@ -68,19 +67,39 @@ namespace Lab03_LTM
         }
         void addMess(string s)
         {
-            if (textBox2.Text != null)
+            try
             {
-                listView1.Items.Add(new ListViewItem() { Text =  DateTime.Now + " "+textBox2.Text+ ": " + s });
-                textBox1.Clear();
+                if (String.IsNullOrEmpty(textBox2.Text))
+                {
+                    throw new Exception();
+                }
+                else
+                {
+                    listView1.Items.Add(new ListViewItem() { Text = " " + DateTime.Now + " " + s });
+                    textBox1.Clear();
+                }
             }
-            else
-                MessageBox.Show("Hãy nhập số nguyên", "Error", MessageBoxButtons.OK);
+            catch (Exception)
+            {
+
+            }
 
         }
         void sendMess()
         {
-            if (textBox1.Text != string.Empty)
-                client.Send(Serialize(textBox1.Text));
+            try
+            {
+                if (String.IsNullOrEmpty(textBox2.Text))
+                    throw new Exception();
+                else
+                    if (textBox1.Text != string.Empty)
+                    client.Send(Serialize(" " + textBox2.Text + ": " + textBox1.Text));
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Please input your name", "Error", MessageBoxButtons.OK);
+            }
+
         }
         byte[] Serialize(object obj)
         {
@@ -101,7 +120,12 @@ namespace Lab03_LTM
 
         private void MultiChat_Client_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Close();
+            client.Close();
+        }
+
+        private void MultiChat_Client_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
