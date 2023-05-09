@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -20,22 +21,56 @@ namespace Lab4_LTM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "" || textBox2.Text == " ")
+            string path = textBox2.Text + @"\" + textBox3.Text + ".html";
+            if (textBox1.Text == "" || textBox2.Text == " " || textBox3.Text == "")
                 MessageBox.Show("Please input all the information", "Error!", MessageBoxButtons.OK);
 
-            WebClient client = new WebClient();
-            client.DownloadFile(textBox1.Text, textBox2.Text);
-            richTextBox1.Text = client.DownloadString(textBox1.Text);
+            try
+            {
+                if (!File.Exists(path)) // If file does not exists
+                {
+                    File.Create(path).Close(); // Create file
+                    WebClient client = new WebClient();
+                    client.DownloadFile(textBox1.Text, path);
+                    richTextBox1.Text = client.DownloadString(textBox1.Text);
+                }
+
+                else // If file already exists
+
+                    throw new Exception();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("This file name is already existed", "Error!", MessageBoxButtons.OK);
+            }
+
+           
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "HTML|*.html";
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            using (var fbd = new FolderBrowserDialog())
             {
-                textBox2.Text = openFileDialog.FileName;
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    textBox2.Text = fbd.SelectedPath;
+                }
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+            richTextBox1.Clear();
         }
     }
 }

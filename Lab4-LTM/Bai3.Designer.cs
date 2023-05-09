@@ -33,6 +33,9 @@
             textBox2 = new TextBox();
             richTextBox1 = new RichTextBox();
             button2 = new Button();
+            textBox3 = new TextBox();
+            label1 = new Label();
+            button3 = new Button();
             SuspendLayout();
             // 
             // button1
@@ -79,11 +82,42 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(101, 132);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(138, 23);
+            textBox3.TabIndex = 5;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(22, 135);
+            label1.Name = "label1";
+            label1.Size = new Size(55, 15);
+            label1.TabIndex = 6;
+            label1.Text = "Filename";
+            label1.Click += label1_Click;
+            // 
+            // button3
+            // 
+            button3.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            button3.Location = new Point(642, 130);
+            button3.Name = "button3";
+            button3.Size = new Size(143, 23);
+            button3.TabIndex = 7;
+            button3.Text = "DELETE";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // Bai3
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button3);
+            Controls.Add(label1);
+            Controls.Add(textBox3);
             Controls.Add(button2);
             Controls.Add(richTextBox1);
             Controls.Add(textBox2);
@@ -102,5 +136,8 @@
         private TextBox textBox2;
         private RichTextBox richTextBox1;
         private Button button2;
+        private TextBox textBox3;
+        private Label label1;
+        private Button button3;
     }
 }
