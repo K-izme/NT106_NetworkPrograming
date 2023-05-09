@@ -65,6 +65,7 @@
             button3.TabIndex = 2;
             button3.Text = "Bài 3";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // button4
             // 

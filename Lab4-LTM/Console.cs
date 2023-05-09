@@ -19,5 +19,11 @@ namespace Lab4_LTM
         {
 
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Bai3 b3 = new Bai3();
+            b3.Show();
+        }
     }
 }
