@@ -21,9 +21,12 @@ namespace Lab4_LTM
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (textBox3.Text == "")
+                textBox3.Text = "download";
             string path = textBox2.Text + @"\" + textBox3.Text + ".html";
-            if (textBox1.Text == "" || textBox2.Text == " " || textBox3.Text == "")
+            if (textBox1.Text == "" || textBox2.Text == " ")
                 MessageBox.Show("Please input all the information", "Error!", MessageBoxButtons.OK);
+            
 
             try
             {

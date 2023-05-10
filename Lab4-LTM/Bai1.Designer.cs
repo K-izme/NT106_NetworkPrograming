@@ -80,6 +80,7 @@
             Controls.Add(button1);
             Name = "Bai1";
             Text = "Bai1";
+            Load += Bai1_Load;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -31,7 +31,7 @@ namespace Lab4_LTM
             Stream rs;
             Byte[] RecvBytes = new byte[Byte.MaxValue];
             Int32 bytes;
-            request = (WebRequest) WebRequest.Create(url);
+            request = (WebRequest)WebRequest.Create(url);
             response = (WebResponse)
                 request.GetResponse();
             rs = response.GetResponseStream();
@@ -49,6 +49,11 @@ namespace Lab4_LTM
         {
             textBox1.Clear();
             richTextBox1.Clear();
+        }
+
+        private void Bai1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
