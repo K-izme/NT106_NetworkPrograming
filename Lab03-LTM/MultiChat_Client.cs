@@ -27,7 +27,7 @@ namespace Lab03_LTM
         private void button1_Click(object sender, EventArgs e)
         {
             sendMess();
-            addMess(textBox1.Text);
+            addMess(textBox2.Text +": "+textBox1.Text);
         }
         void connectServer()
         {
@@ -93,7 +93,7 @@ namespace Lab03_LTM
                     throw new Exception();
                 else
                     if (textBox1.Text != string.Empty)
-                    client.Send(Serialize(" " + textBox2.Text + ": " + textBox1.Text));
+                    client.Send(Serialize(" "+ textBox2.Text + ": " + textBox1.Text));
             }
             catch (Exception)
             {
@@ -124,6 +124,11 @@ namespace Lab03_LTM
         }
 
         private void MultiChat_Client_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

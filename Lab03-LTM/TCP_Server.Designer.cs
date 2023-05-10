@@ -61,6 +61,7 @@
             Controls.Add(button1);
             Name = "TCP_Server";
             Text = "TCP_Server";
+            FormClosing += TCP_Server_FormClosing;
             Load += TCP_Server_Load;
             ResumeLayout(false);
         }

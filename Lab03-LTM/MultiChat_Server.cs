@@ -17,6 +17,7 @@ namespace Lab03_LTM
     {
         IPEndPoint IP;
         Socket server;
+        Socket client;
         List<Socket> clientList;
         public MultiChat_Server()
         {
@@ -50,9 +51,9 @@ namespace Lab03_LTM
                     while (true)
                     {
                         server.Listen(100);
-                        Socket client = server.Accept();
+                        client = server.Accept();
                         clientList.Add(client);
-                        addMess(" New client connection from: " + client.RemoteEndPoint.ToString());
+                        listView1.Items.Add(new ListViewItem() { Text=" New client connection from: " + client.RemoteEndPoint.ToString() });
                         Thread receive = new Thread(receiveMess);
                         receive.IsBackground = true;
                         receive.Start(client);
@@ -99,12 +100,12 @@ namespace Lab03_LTM
         }
         void addMess(string s)
         {
-            listView1.Items.Add(new ListViewItem() { Text = DateTime.Now + s });
+            listView1.Items.Add(new ListViewItem() { Text = client.RemoteEndPoint+" "+ s });
         }
         void sendMess(Socket client)
         {
             if (client != null && textBox1.Text != string.Empty)
-                client.Send(Serialize("Server: "+textBox1.Text));
+                client.Send(Serialize("Server: " + textBox1.Text));
         }
         byte[] Serialize(object obj)
         {

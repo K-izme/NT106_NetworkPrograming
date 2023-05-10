@@ -61,6 +61,8 @@
             Controls.Add(startListen);
             Name = "ex2";
             Text = "ex2";
+            FormClosing += ex2_FormClosing;
+            Load += ex2_Load;
             ResumeLayout(false);
         }
 

@@ -15,6 +15,10 @@ namespace Lab03_LTM
 {
     public partial class ex2 : Form
     {
+        Socket listenerSocket;
+        Thread serverTh;
+        Socket client;
+        
         public ex2()
         {
             InitializeComponent();
@@ -23,17 +27,26 @@ namespace Lab03_LTM
         private void button1_Click(object sender, EventArgs e)
         {
             CheckForIllegalCrossThreadCalls = true;
-            Thread serverTh = new Thread(new ThreadStart(StartUnsafeThread));
+            serverTh = new Thread(new ThreadStart(StartUnsafeThread));
             serverTh.Start();
             serverTh.IsBackground = true;
+
+        }
+        bool SocketConnected(Socket s)
+        {
+            bool part1 = s.Poll(1000, SelectMode.SelectRead);
+            bool part2 = (s.Available == 0);
+            if (part1 && part2)
+                return false;
+            else
+                return true;
         }
         void StartUnsafeThread()
         {
 
             int byteReceive = 0;
             byte[] recv = new byte[1];
-            Socket client;
-            Socket listenerSocket = new Socket
+            listenerSocket = new Socket
                 (
                 AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp
                 );
@@ -42,7 +55,7 @@ namespace Lab03_LTM
             listenerSocket.Listen(-1);
             client = listenerSocket.Accept();
 
-            listView1.Invoke((MethodInvoker)(() => listView1.Items.Add(new ListViewItem("New client connected"))));
+            listView1.Invoke((MethodInvoker)(() => listView1.Items.Add(new ListViewItem("Telnet running on " + client.RemoteEndPoint))));
             while (client.Connected)
             {
                 string text = "";
@@ -54,16 +67,37 @@ namespace Lab03_LTM
                 while (text[text.Length - 1] != '\n');
                 listView1.Invoke((MethodInvoker)(() => listView1.Items.Add(new ListViewItem(text))));
 
-            }
+                if (SocketConnected(client) == false)
+                {
+                    listView1.Invoke((MethodInvoker)(() => listView1.Items.Add(new ListViewItem("Disconnected"))));
+                    listenerSocket.Close();
+                    break;
 
-            listenerSocket.Close();
-            client.Close();
+                }
+            }
+         
 
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void ex2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void ex2_FormClosed(object sender, FormClosedEventArgs e)
+        {
+           
+        }
+
+        private void ex2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            listenerSocket.Close();
         }
     }
 }
