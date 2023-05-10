@@ -1,6 +1,6 @@
 ﻿namespace Lab4_LTM
 {
-    partial class ViewSource
+    partial class WebBrowser
     {
         /// <summary>
         /// Required designer variable.
@@ -28,31 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            richTextBox1 = new RichTextBox();
+            webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
+            ((System.ComponentModel.ISupportInitialize)webView21).BeginInit();
             SuspendLayout();
             // 
-            // richTextBox1
+            // webView21
             // 
-            richTextBox1.Location = new Point(0, 0);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(800, 449);
-            richTextBox1.TabIndex = 0;
-            richTextBox1.Text = "";
+            webView21.AllowExternalDrop = true;
+            webView21.CreationProperties = null;
+            webView21.DefaultBackgroundColor = Color.White;
+            webView21.Dock = DockStyle.Fill;
+            webView21.Location = new Point(0, 0);
+            webView21.Name = "webView21";
+            webView21.Size = new Size(800, 450);
+            webView21.TabIndex = 0;
+            webView21.ZoomFactor = 1D;
             // 
-            // ViewSource
+            // WebBrowser
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(richTextBox1);
-            Name = "ViewSource";
-            Text = "ViewSource";
-            Load += ViewSource_Load;
+            Controls.Add(webView21);
+            Name = "WebBrowser";
+            Text = "WebBrowser";
+            Load += WebBrowser_Load;
+            ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private RichTextBox richTextBox1;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
     }
 }

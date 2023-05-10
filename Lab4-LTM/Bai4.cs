@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HtmlAgilityPack;
+using Microsoft.Web.WebView2.WinForms;
 
 namespace Lab4_LTM
 {
@@ -20,8 +21,10 @@ namespace Lab4_LTM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            WebBrowser wb = new WebBrowser();
-            wb.Show();
+            string url = textBox1.Text; 
+
+            WebBrowser webView2Form = new WebBrowser(url);
+            webView2Form.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)

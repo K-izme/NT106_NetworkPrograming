@@ -7,18 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Net.Http;
+using Microsoft.Web.WebView2.WinForms;
 
 namespace Lab4_LTM
 {
-    public partial class ViewSource : Form
+    public partial class WebBrowser : Form
     {
-        public ViewSource()
+        public WebBrowser(string url)
         {
             InitializeComponent();
+
+            webView21.Source = new Uri(url);
         }
 
-        private void ViewSource_Load(object sender, EventArgs e)
+        private void WebBrowser_Load(object sender, EventArgs e)
         {
 
         }
