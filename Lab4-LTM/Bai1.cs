@@ -21,7 +21,14 @@ namespace Lab4_LTM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            richTextBox1.Text = getHTTP(textBox1.Text);
+            try
+            {
+                richTextBox1.Text = getHTTP(textBox1.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private string getHTTP(string url)
         {
