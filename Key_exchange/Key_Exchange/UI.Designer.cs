@@ -206,6 +206,7 @@
             clientPrivate.ReadOnly = true;
             clientPrivate.Size = new Size(424, 23);
             clientPrivate.TabIndex = 17;
+            clientPrivate.TextChanged += clientPrivate_TextChanged;
             // 
             // gen_1
             // 
@@ -245,6 +246,7 @@
             serverOp.TabIndex = 22;
             serverOp.Text = "Open Server";
             serverOp.UseVisualStyleBackColor = true;
+            serverOp.Click += serverOp_Click;
             // 
             // gen_priKey_client
             // 
@@ -256,7 +258,7 @@
             gen_priKey_client.UseVisualStyleBackColor = true;
             gen_priKey_client.Click += gen_priKey_client_Click;
             // 
-            // Form1
+            // UI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -284,7 +286,7 @@
             Controls.Add(serverAdd);
             Controls.Add(label2);
             Controls.Add(label1);
-            Name = "Form1";
+            Name = "UI";
             Text = "Form1";
             Load += Form1_Load;
             ResumeLayout(false);

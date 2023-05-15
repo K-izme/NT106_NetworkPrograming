@@ -28,12 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Client";
+            richTextBox1 = new RichTextBox();
+            button1 = new Button();
+            textBox1 = new TextBox();
+            SuspendLayout();
+            // 
+            // richTextBox1
+            // 
+            richTextBox1.Location = new Point(12, 12);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(776, 376);
+            richTextBox1.TabIndex = 0;
+            richTextBox1.Text = "";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(713, 405);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 1;
+            button1.Text = "Send";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(12, 405);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(695, 23);
+            textBox1.TabIndex = 2;
+            textBox1.TextChanged += textBox1_TextChanged;
+            // 
+            // Client
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(textBox1);
+            Controls.Add(button1);
+            Controls.Add(richTextBox1);
+            Name = "Client";
+            Text = "Client";
+            Load += Client_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private RichTextBox richTextBox1;
+        private Button button1;
+        private TextBox textBox1;
     }
 }

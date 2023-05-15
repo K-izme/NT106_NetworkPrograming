@@ -50,12 +50,22 @@ namespace Key_Exchange
 
         private void gen_3_Click(object sender, EventArgs e)
         {
-            pubBig.Text = getRandomHex(128);
+            serverPrivate.Text = getRandomHex(128);
         }
 
         private void gen_priKey_client_Click(object sender, EventArgs e)
         {
-            pubBig.Text = getRandomHex(128);
+            clientPrivate.Text = getRandomHex(128);
+        }
+
+        private void serverOp_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void clientPrivate_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
