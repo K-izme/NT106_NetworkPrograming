@@ -32,6 +32,7 @@ class Client
 
             // Derive shared secret key
             sharedKey = clientECDH.DeriveKeyMaterial(CngKey.Import(serverPublicKey, CngKeyBlobFormat.EccPublicBlob));
+            Console.WriteLine("Session key derived: " + BitConverter.ToString(sharedKey));
 
             // Receive IV from the server
             iv = new byte[16];

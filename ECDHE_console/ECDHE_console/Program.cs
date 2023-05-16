@@ -39,6 +39,7 @@ class Server
 
             // Derive shared secret key
             sharedKey = serverECDH.DeriveKeyMaterial(CngKey.Import(clientPublicKey, CngKeyBlobFormat.EccPublicBlob));
+            Console.WriteLine("Session key derived: " + BitConverter.ToString(sharedKey));
 
             // Generate random IV for AES encryption
             using (Aes aes = Aes.Create())
