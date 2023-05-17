@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net.Sockets;
 using System.Security.Cryptography;
+using System.Text;
 
 class Client
 {
@@ -11,27 +12,49 @@ class Client
 
     public void Run()
     {
-        clientECDH = new ECDiffieHellmanCng(ECCurve.NamedCurves.nistP256);
 
-        byte[] clientPublicKey = clientECDH.PublicKey.ToByteArray();
-
+        byte[] curve = new byte[8];
         // Connect to the server
         TcpClient client = new TcpClient();
         client.Connect("localhost", 1234);
         Console.WriteLine("Connected to the server.");
 
-        // Receive server's public key
-        byte[] serverPublicKey = new byte[clientPublicKey.Length];
+       
+        
         using (NetworkStream stream = client.GetStream())
         {
+            stream.Read(curve, 0, curve.Length);
+            Console.WriteLine("Server curve name received.");
+
+            string curveName = Encoding.ASCII.GetString(curve);
+            switch (curveName)
+            {
+                case "nistP512":
+                    clientECDH = new ECDiffieHellmanCng(ECCurve.NamedCurves.nistP521);
+                    break;
+                case "nistP384":
+                    clientECDH = new ECDiffieHellmanCng(ECCurve.NamedCurves.nistP384);
+                    break;
+                case "nistP256":
+                    clientECDH = new ECDiffieHellmanCng(ECCurve.NamedCurves.nistP256);
+                    break;
+
+            }
+            byte[] clientPublicKey = clientECDH.PublicKey.ToByteArray();
+            byte[] serverPublicKey = new byte[clientPublicKey.Length];
+
+            // Receive Server public key
             stream.Read(serverPublicKey, 0, serverPublicKey.Length);
             Console.WriteLine("Server public key received.");
 
+            //Send Client public key
             stream.Write(clientPublicKey, 0, clientPublicKey.Length);
             Console.WriteLine("Client public key sent.");
 
+
             // Derive shared secret key
             sharedKey = clientECDH.DeriveKeyMaterial(CngKey.Import(serverPublicKey, CngKeyBlobFormat.EccPublicBlob));
+            
 
             // Receive IV from the server
             iv = new byte[16];

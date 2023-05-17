@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography;
+using System.Text;
 
 class Server
 {
@@ -13,11 +14,6 @@ class Server
     public void Run()
     {
         
-        serverECDH = new ECDiffieHellmanCng(ECCurve.NamedCurves.nistP256);
-
-        // Generate server's ephemeral key pair
-        byte[] serverPublicKey = serverECDH.PublicKey.ToByteArray();
-
         // Start listening for incoming connections
         TcpListener listener = new TcpListener(IPAddress.Any, 1234);
         listener.Start();
@@ -29,6 +25,25 @@ class Server
 
         using (NetworkStream stream = client.GetStream())
         {
+          
+            byte[] curve = Encoding.ASCII.GetBytes("nistP512");
+            //Send curve name for client
+            stream.Write(curve, 0, curve.Length);
+            Console.WriteLine("Server curve name sent.");
+
+            
+
+
+            //wait for client to receive curve name
+            TimeSpan ts = new TimeSpan(0, 0, 10);
+            Thread.Sleep(ts);
+
+            serverECDH = new ECDiffieHellmanCng(ECCurve.NamedCurves.nistP521);
+            // Generate server's ephemeral key pair
+            byte[] serverPublicKey = serverECDH.PublicKey.ToByteArray();
+            Console.WriteLine(serverECDH.PublicKey.ToString().GetHashCode());
+
+            //Send server's public key
             stream.Write(serverPublicKey, 0, serverPublicKey.Length);
             Console.WriteLine("Server public key sent.");
 
