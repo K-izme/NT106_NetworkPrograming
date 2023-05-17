@@ -16,7 +16,7 @@ class Client
         byte[] curve = new byte[8];
         // Connect to the server
         TcpClient client = new TcpClient();
-        client.Connect("localhost", 1234);
+        client.Connect("192.168.1.108", 1234);
         Console.WriteLine("Connected to the server.");
 
        
@@ -54,7 +54,7 @@ class Client
 
             // Derive shared secret key
             sharedKey = clientECDH.DeriveKeyMaterial(CngKey.Import(serverPublicKey, CngKeyBlobFormat.EccPublicBlob));
-            
+            Console.WriteLine("Session key derived: " + BitConverter.ToString(sharedKey));
 
             // Receive IV from the server
             iv = new byte[16];

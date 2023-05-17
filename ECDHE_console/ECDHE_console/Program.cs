@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -31,8 +32,6 @@ class Server
             stream.Write(curve, 0, curve.Length);
             Console.WriteLine("Server curve name sent.");
 
-            
-
 
             //wait for client to receive curve name
             TimeSpan ts = new TimeSpan(0, 0, 10);
@@ -54,6 +53,7 @@ class Server
 
             // Derive shared secret key
             sharedKey = serverECDH.DeriveKeyMaterial(CngKey.Import(clientPublicKey, CngKeyBlobFormat.EccPublicBlob));
+            Console.WriteLine("Session key derived: " + BitConverter.ToString(sharedKey));
 
             // Generate random IV for AES encryption
             using (Aes aes = Aes.Create())
@@ -78,6 +78,8 @@ class Server
                 string decryptedMessage = DecryptMessage(encryptedMessage);
                 Console.WriteLine("Received from client: " + decryptedMessage);
             }
+
+            
         }
     }
 
