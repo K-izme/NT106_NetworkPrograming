@@ -132,7 +132,7 @@
             rtbBody.TabIndex = 10;
             rtbBody.Text = "";
             // 
-            // Form1
+            // Bai1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -148,8 +148,9 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(button1);
-            Name = "Form1";
+            Name = "Bai1";
             Text = "Form1";
+            Load += Bai1_Load;
             ResumeLayout(false);
             PerformLayout();
         }

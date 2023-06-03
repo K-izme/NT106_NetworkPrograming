@@ -12,7 +12,7 @@ namespace Lab5_LTM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            using (SmtpClient smptClient = new SmtpClient("127.0.0.1"))
+            using (SmtpClient client = new SmtpClient("127.0.0.1"))
             {
                 string mailFrom = fromBox.Text.ToString().Trim();
                 string mailTo = toBox.Text.ToString().Trim();
@@ -21,8 +21,8 @@ namespace Lab5_LTM
                 using (MailMessage mailMessage = new MailMessage())
                 {
                     MailAddress fromAdd = new MailAddress(mailFrom);
-                    smptClient.UseDefaultCredentials = false;
-                    smptClient.Credentials = basicCredential;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = basicCredential;
 
                     mailMessage.From = fromAdd;
                     mailMessage.Subject = subBox.Text.ToString().Trim();
@@ -32,7 +32,7 @@ namespace Lab5_LTM
 
                     try
                     {
-                        smptClient.Send(mailMessage);
+                        client.Send(mailMessage);
                         MessageBox.Show("Mail sent!");
                     }
                     catch (Exception ex)
@@ -41,6 +41,15 @@ namespace Lab5_LTM
                     }
                 }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void Bai1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

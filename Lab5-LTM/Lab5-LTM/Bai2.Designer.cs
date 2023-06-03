@@ -121,6 +121,7 @@
             Controls.Add(label1);
             Name = "Bai2";
             Text = "Bai2";
+            Load += Bai2_Load;
             ResumeLayout(false);
             PerformLayout();
         }

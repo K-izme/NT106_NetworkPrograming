@@ -56,5 +56,10 @@ namespace Lab5_LTM
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void Bai2_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
