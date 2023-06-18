@@ -48,9 +48,23 @@ namespace Lab6_LTM
             textBox1.Text = color;
             CreateCanvas();
 
+            // Initialize the Pen object
+            int size;
+            if (comboBox1.Text == "")
+            {
+                size = 8;
+            }
+            else
+            {
+                size = Convert.ToInt32(comboBox1.Text);
+            }
+            Color newColor = ColorTranslator.FromHtml(color);
+            p = new Pen(newColor, size);
+            p.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
+
             // Connect to the server
             client = new TcpClient();
-            client.Connect("127.0.0", 1234); // Replace with your server IP address and desired port number
+            client.Connect("127.0.0.1", 5432); // Replace with your server IP address and port number
 
             // Set up network stream and readers/writers
             stream = client.GetStream();
@@ -68,16 +82,15 @@ namespace Lab6_LTM
             graphics = Graphics.FromImage(bmp);
             pictureBox1.BackgroundImage = bmp;
             pictureBox1.BackgroundImageLayout = ImageLayout.None;
+            pictureBox1.Invalidate();
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             draw = true;
-
             start = e.Location;
 
             int size;
-
             if (comboBox1.Text == "")
             {
                 size = 8;
@@ -178,71 +191,138 @@ namespace Lab6_LTM
             Application.Exit();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void ReceiveDrawingData()
         {
-            while (client.Connected)
+            try
             {
-                try
+                while (true)
                 {
                     string data = reader.ReadLine();
+                    if (data != null)
+                    {
+                        // Process the received drawing data and update the local canvas
+                        string[] parts = data.Split('|');
+                        if (parts.Length >= 2)
+                        {
+                            string command = parts[0];
+                            switch (command)
+                            {
+                                case "MOUSE_DOWN":
+                                    int startX = Convert.ToInt32(parts[1]);
+                                    int startY = Convert.ToInt32(parts[2]);
+                                    start = new Point(startX, startY);
+                                    break;
 
-                    // Parse the received data and update the local canvas accordingly
-                    string[] tokens = data.Split('|');
-                    string eventType = tokens[0];
+                                case "MOUSE_MOVE":
+                                    int endX = Convert.ToInt32(parts[1]);
+                                    int endY = Convert.ToInt32(parts[2]);
+                                    end = new Point(endX, endY);
+                                    graphics.DrawLine(p, start, end);
+                                    start = end;
+                                    pictureBox1.Invalidate();
+                                    break;
 
-                    if (eventType == "MOUSE_DOWN")
-                    {
-                        int x = int.Parse(tokens[1]);
-                        int y = int.Parse(tokens[2]);
-                        start = new Point(x, y);
-                    }
-                    else if (eventType == "MOUSE_MOVE")
-                    {
-                        int x = int.Parse(tokens[1]);
-                        int y = int.Parse(tokens[2]);
-                        end = new Point(x, y);
-                        graphics.DrawLine(p, start, end);
-                        start = end;
-                        pictureBox1.Invalidate();
-                    }
-                    else if (eventType == "MOUSE_UP")
-                    {
-                        draw = false;
-                    }
-                    else if (eventType == "CLEAR_CANVAS")
-                    {
-                        CreateCanvas();
-                    }
-                    else if (eventType == "COLOR_CHANGE")
-                    {
-                        color = tokens[1];
-                        textBox1.Text = color;
+                                case "CLEAR_CANVAS":
+                                    CreateCanvas();
+                                    break;
+
+                                case "COLOR_CHANGE":
+                                    string newColor = parts[1];
+                                    color = newColor;
+                                    textBox1.Text = color;
+                                    break;
+                                case "IMAGE":
+                                    // Handle image data
+                                    string base64Image = parts[1];
+                                    byte[] imageBytes = Convert.FromBase64String(base64Image);
+                                    using (MemoryStream memoryStream = new MemoryStream(imageBytes))
+                                    {
+                                        // Update the PictureBox with the received image
+                                        pictureBox1.Image = Image.FromStream(memoryStream);
+                                    }
+                                    break;
+                                case "CLIENTS_COUNT":
+                                    string connectedClients = parts[1].Substring(0, 1);
+                                    textBox5.Text = connectedClients;
+                                    break;
+                            }
+                        }
                     }
                 }
-                catch (IOException)
-                {
-                    // An error occurred while reading data from the stream
-                    // Handle the error or gracefully terminate the application
-                    break;
-                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occur during data receiving
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void DisconnectFromServer()
         {
-            // Close all network resources
+            // Close network resources and clean up
+            receiveThread.Abort();
             writer.Close();
             reader.Close();
             stream.Close();
             client.Close();
-
-            // Join the receive thread (wait for it to finish) before closing the form
-            receiveThread.Join();
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string imageUrl = textBox2.Text;
+            int desiredWidth = Convert.ToInt32(textBox4.Text);
+            int desiredHeight = Convert.ToInt32(textBox3.Text);
+
+            try
+            {
+                using (WebClient webClient = new WebClient())
+                {
+                    byte[] imageBytes = webClient.DownloadData(imageUrl);
+                    using (MemoryStream memoryStream = new MemoryStream(imageBytes))
+                    {
+                        Image originalImage = Image.FromStream(memoryStream);
+                        Image resizedImage = ResizeImage(originalImage, desiredWidth, desiredHeight);
+                        string base64Image = ImageToBase64(resizedImage);
+                        writer.WriteLine($"IMAGE|{base64Image}");
+                        writer.Flush();
+                        pictureBox1.Image = resizedImage;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error importing image from URL: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private Image ResizeImage(Image image, int width, int height)
+        {
+            Bitmap resizedImage = new Bitmap(width, height);
+            using (Graphics graphics = Graphics.FromImage(resizedImage))
+            {
+                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                graphics.DrawImage(image, 0, 0, width, height);
+            }
+            return resizedImage;
+        }
+
+        private string ImageToBase64(Image image)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                byte[] imageBytes = memoryStream.ToArray();
+                return Convert.ToBase64String(imageBytes);
+            }
+        }
+
     }
 }
