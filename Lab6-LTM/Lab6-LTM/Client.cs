@@ -161,28 +161,41 @@ namespace Lab6_LTM
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SaveFileDialog s = new SaveFileDialog();
-            s.Filter = "Png files| *.png|jpeg files| *.jpg|bitmaps | *.bmp";
-            if (s.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            using (SaveFileDialog s = new SaveFileDialog())
             {
-                if (File.Exists(s.FileName))
+                s.Filter = "Png files (*.png)|*.png|JPEG files (*.jpg)|*.jpg|Bitmaps (*.bmp)|*.bmp";
+                if (s.ShowDialog() == DialogResult.OK)
                 {
-                    File.Delete(s.FileName);
-                }
-                if (s.FileName.Contains(".jpg"))
-                {
-                    bmp.Save(s.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-                }
-                else if (s.FileName.Contains(".png"))
-                {
-                    bmp.Save(s.FileName, System.Drawing.Imaging.ImageFormat.Png);
-                }
-                else if (s.FileName.Contains(".bmp"))
-                {
-                    bmp.Save(s.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
+                    try
+                    {
+                        if (File.Exists(s.FileName))
+                        {
+                            File.Delete(s.FileName);
+                        }
+
+                        string fileExtension = Path.GetExtension(s.FileName).ToLower();
+                        System.Drawing.Imaging.ImageFormat imageFormat = System.Drawing.Imaging.ImageFormat.Jpeg;
+
+                        if (fileExtension == ".png")
+                        {
+                            imageFormat = System.Drawing.Imaging.ImageFormat.Png;
+                        }
+                        else if (fileExtension == ".bmp")
+                        {
+                            imageFormat = System.Drawing.Imaging.ImageFormat.Bmp;
+                        }
+
+                        bmp.Save(s.FileName, imageFormat);
+                        MessageBox.Show("Image saved successfully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"An error occurred while saving the image: {ex.Message}");
+                    }
                 }
             }
         }
+
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {

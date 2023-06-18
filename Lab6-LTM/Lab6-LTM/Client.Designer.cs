@@ -47,6 +47,7 @@
             label4 = new Label();
             label5 = new Label();
             textBox5 = new TextBox();
+            saveFileDialog1 = new SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -89,6 +90,7 @@
             button2.TabIndex = 9;
             button2.Text = "Save";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // textBox1
             // 
@@ -127,14 +129,16 @@
             // clearToolStripMenuItem
             // 
             clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            clearToolStripMenuItem.Size = new Size(101, 22);
+            clearToolStripMenuItem.Size = new Size(180, 22);
             clearToolStripMenuItem.Text = "Clear";
+            clearToolStripMenuItem.Click += clearToolStripMenuItem_Click;
             // 
             // quitToolStripMenuItem
             // 
             quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            quitToolStripMenuItem.Size = new Size(101, 22);
+            quitToolStripMenuItem.Size = new Size(180, 22);
             quitToolStripMenuItem.Text = "Quit";
+            quitToolStripMenuItem.Click += quitToolStripMenuItem_Click;
             // 
             // textBox2
             // 
@@ -264,5 +268,6 @@
         private Label label4;
         private Label label5;
         private TextBox textBox5;
+        private SaveFileDialog saveFileDialog1;
     }
 }
