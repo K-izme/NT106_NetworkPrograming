@@ -50,6 +50,7 @@ namespace Server
         {
             TcpClient client = listener.AcceptTcpClient();
             clients.Add(client);
+            Console.WriteLine($"{clients.Count} connected!");
             SendConnectedClientsCount();
             return client;
         }
@@ -67,6 +68,7 @@ namespace Server
             sendToAll(countMessage);
         }
 
+        //Email send
         private void SendEmailNotification(int clientCount)
         {
             string emailFrom = "kietngo2552@gmail.com";

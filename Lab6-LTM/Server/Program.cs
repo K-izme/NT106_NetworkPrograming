@@ -14,13 +14,12 @@ namespace Server
         {
             while (true)
             {
-                // add client to server
                 TcpClient client = server.newClient();
                 // connect new client in seperate thread
                 Task.Run(() =>
                 {
                     Console.WriteLine("user joined");
-                    // while thread is running, send message, else exit loop.
+                    // while thread is running, send drawing command to all, else exit loop.
                     while (true)
                     {
                         try
@@ -36,7 +35,6 @@ namespace Server
                     }
                 });
             }
-            // wait for client
         }
     }
 }

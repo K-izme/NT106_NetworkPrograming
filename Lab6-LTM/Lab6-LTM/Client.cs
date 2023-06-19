@@ -48,7 +48,7 @@ namespace Lab6_LTM
             textBox1.Text = color;
             CreateCanvas();
 
-            // Initialize the Pen object
+            // initialize the Pen object
             int size;
             if (comboBox1.Text == "")
             {
@@ -64,18 +64,17 @@ namespace Lab6_LTM
 
             // Connect to the server
             client = new TcpClient();
-            client.Connect("127.0.0.1", 5432); // Replace with your server IP address and port number
+            client.Connect("127.0.0.1", 5432); 
 
-            // Set up network stream and readers/writers
             stream = client.GetStream();
             writer = new StreamWriter(stream);
             reader = new StreamReader(stream);
 
-            // Start a new thread to continuously receive drawing data from the server
             receiveThread = new Thread(ReceiveDrawingData);
             receiveThread.Start();
         }
 
+        //bmp
         void CreateCanvas()
         {
             bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
@@ -159,6 +158,7 @@ namespace Lab6_LTM
             }
         }
 
+        //save img
         private void button2_Click(object sender, EventArgs e)
         {
             using (SaveFileDialog s = new SaveFileDialog())
@@ -246,12 +246,10 @@ namespace Lab6_LTM
                                     textBox1.Text = color;
                                     break;
                                 case "IMAGE":
-                                    // Handle image data
                                     string base64Image = parts[1];
                                     byte[] imageBytes = Convert.FromBase64String(base64Image);
                                     using (MemoryStream memoryStream = new MemoryStream(imageBytes))
                                     {
-                                        // Update the PictureBox with the received image
                                         pictureBox1.Image = Image.FromStream(memoryStream);
                                     }
                                     break;
@@ -266,14 +264,12 @@ namespace Lab6_LTM
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that occur during data receiving
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void DisconnectFromServer()
         {
-            // Close network resources and clean up
             receiveThread.Abort();
             writer.Close();
             reader.Close();
@@ -286,6 +282,7 @@ namespace Lab6_LTM
 
         }
 
+        //import img part
         private void button3_Click(object sender, EventArgs e)
         {
             string imageUrl = textBox2.Text;
