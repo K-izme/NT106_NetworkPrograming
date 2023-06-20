@@ -64,7 +64,7 @@ namespace Lab6_LTM
 
             // Connect to the server
             client = new TcpClient();
-            client.Connect("127.0.0.1", 5432); 
+            client.Connect("127.0.0.1", 5432);
 
             stream = client.GetStream();
             writer = new StreamWriter(stream);
@@ -133,6 +133,9 @@ namespace Lab6_LTM
             // Send the mouse up event to the server
             writer.WriteLine("MOUSE_UP");
             writer.Flush();
+
+            writer.WriteLine($"LINE_CHANGE|{comboBox1.Text}");
+            writer.Flush();
         }
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
@@ -140,7 +143,7 @@ namespace Lab6_LTM
             CreateCanvas();
 
             // Send a clear canvas event to the server
-            writer.WriteLine("CLEAR_CANVAS");
+            writer.WriteLine("CLEAR_CANVAS|");
             writer.Flush();
         }
 
@@ -257,6 +260,15 @@ namespace Lab6_LTM
                                     string connectedClients = parts[1].Substring(0, 1);
                                     textBox5.Text = connectedClients;
                                     break;
+                                case "LINE_CHANGE":
+                                    string lineSize = parts[1];
+                                    int newSize;
+                                    if (int.TryParse(lineSize, out newSize))
+                                    {
+                                        p.Width = newSize;
+                                        comboBox1.Text = lineSize;
+                                    }
+                                    break;
                             }
                         }
                     }
@@ -334,5 +346,6 @@ namespace Lab6_LTM
             }
         }
 
+        
     }
 }
