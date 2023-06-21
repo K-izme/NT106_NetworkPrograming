@@ -79,7 +79,7 @@ namespace Server
             using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
             {
                 smtpClient.EnableSsl = true;
-                smtpClient.Credentials = new NetworkCredential("kietngo2552@gmail.com", "zqfguhvsqzumlvps");
+                smtpClient.Credentials = new NetworkCredential("kietngo2552@gmail.com", "------gmailapppassword------");
 
                 using (MailMessage mailMessage = new MailMessage(emailFrom, emailTo, emailSubject, emailBody))
                 {
